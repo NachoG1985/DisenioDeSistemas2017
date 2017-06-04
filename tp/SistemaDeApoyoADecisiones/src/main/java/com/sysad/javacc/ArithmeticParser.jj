@@ -1,0 +1,46 @@
+options{ STATIC = false; JDK_VERSION = "1.8"; }
+PARSER_BEGIN(ArithmeticParser)
+package javacc;
+import java.io.StringReader;
+
+public class ArithmeticParser {
+
+    public static void main(String[] args) throws Exception {
+        ArithmeticParser parser = new ArithmeticParser( System.in ) ;
+        parser.Start() ;
+    }
+
+}
+PARSER_END(ArithmeticParser)
+
+    SKIP :
+    {     " "
+        | "\t"
+        | "\r"
+        | "\n"
+    }
+
+  TOKEN:{
+          <LPAREN: "(">
+       |  <RPAREN: ")">
+       |  <MULTIPLY:  "*">
+       |  <DIVIDE: "/">
+       |  <ADD: "+">
+       |  <SUBTRACT: "-">
+       |  <NUMBER:(["0"-"9"])+>
+       |  <CUENTA:(["a"-"z","A"-"Z", "0"-"9"])+>
+    }
+
+
+
+void Start():{}
+{
+    <NUMBER>|<CUENTA>
+    (
+        <ADD>
+        (
+            <NUMBER>|<CUENTA>
+        )
+    )*
+<EOF>
+}
