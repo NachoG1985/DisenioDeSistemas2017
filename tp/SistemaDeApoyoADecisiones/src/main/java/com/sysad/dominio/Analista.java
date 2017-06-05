@@ -13,9 +13,10 @@ public class Analista {
 	 
 	public void cargarEmpresas(String ruta){
  		final EmpresasUpload empresasUpload = new EmpresasUpload();
- 		this.agregarEmpresas(empresasUpload.procesarArchivo(ruta));
- 	
-	}
+ 		List<Empresa> empresas = empresasUpload.procesarArchivo(ruta);
+ 		this.agregarEmpresas(empresas);
+ 		}
+	
 	public void agregarEmpresas(List<Empresa> empresasAAgregar) {
         empresas.addAll(empresasAAgregar);
     }

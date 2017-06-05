@@ -1,0 +1,54 @@
+[
+  {
+    "nombre": "Facebook",
+    "periodos": [
+      {
+        "cuentas": [
+          {
+            "nombre": "EBITDA",
+            "monto": 123456.45
+          },
+          {
+            "nombre": "FDS",
+            "monto": 156789.64
+          }
+        ],
+        "anio": 2017
+      },
+      {
+        "cuentas": [
+          {
+            "nombre": "EBIDTA",
+            "monto": 27832.23
+          }
+        ],
+        "anio": 2016
+      }]
+  },
+  {
+    "nombre": "Tweeter",
+    "periodos": [
+      {
+        "cuentas": [
+          {
+            "nombre": "EBITDA",
+            "monto": 9999.45
+          },
+          {
+            "nombre": "FDS",
+            "monto": 2222.64
+          }
+        ],
+        "anio": 2014
+      },
+      {
+        "cuentas": [
+          {
+            "nombre": "EBIDTA",
+            "monto": 27832.23
+          }
+        ],
+        "anio": 2015
+      }]
+  }
+]
