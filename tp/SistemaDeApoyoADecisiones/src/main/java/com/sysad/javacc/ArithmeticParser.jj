@@ -1,46 +1,65 @@
 options{ STATIC = false; JDK_VERSION = "1.8"; }
 PARSER_BEGIN(ArithmeticParser)
 package javacc;
-import java.io.StringReader;
+import modelo.dominio.operandos.Bodoque;
+import modelo.dominio.operaciones.*;
+import modelo.dominio.operandos.*;
 
 public class ArithmeticParser {
-
-    public static void main(String[] args) throws Exception {
-        ArithmeticParser parser = new ArithmeticParser( System.in ) ;
-        parser.Start() ;
-    }
-
+    Bodoque bodoqueDevolver = new Bodoque();
+    public Bodoque getBodoqueDevolver(){
+        return bodoqueDevolver;
+     }
 }
 PARSER_END(ArithmeticParser)
 
-    SKIP :
-    {     " "
-        | "\t"
-        | "\r"
-        | "\n"
-    }
+SKIP :
+      {     " "
+          | "\t"
+          | "\r"
+          | "\n"
+      }
 
-  TOKEN:{
-          <LPAREN: "(">
-       |  <RPAREN: ")">
-       |  <MULTIPLY:  "*">
-       |  <DIVIDE: "/">
-       |  <ADD: "+">
-       |  <SUBTRACT: "-">
-       |  <NUMBER:(["0"-"9"])+>
-       |  <CUENTA:(["a"-"z","A"-"Z", "0"-"9"])+>
-    }
-
-
-
-void Start():{}
-{
-    <NUMBER>|<CUENTA>
-    (
-        <ADD>
-        (
-            <NUMBER>|<CUENTA>
-        )
-    )*
-<EOF>
+TOKEN:{
+            <LPAREN: "(">
+         |  <RPAREN: ")">
+         |  <MULTIPLY:  "*">
+         |  <DIVIDE: "/">
+         |  <ADD: "+">
+         |  <SUBTRACT: "-">
+         |  <NUMBER:(["0"-"9"])+>
+         |  <CUENTA:(["a"-"z","A"-"Z", "0"-"9"])+>
+      }
+void Start():{}{
+    BODOQUE(bodoqueDevolver)
 }
+void BODOQUE(Bodoque bodoque):{}
+     {
+        POPERANDO(bodoque) OPERACION(bodoque) SOPERANDO(bodoque)
+     }
+void POPERANDO(Bodoque bodoque):{}
+     {
+            <NUMBER>{ bodoque.setPrimerOperando(new Valor(token.image)); }
+        |   <CUENTA>{ bodoque.setPrimerOperando(new CuentaOperando(token.image)); }
+     }
+void OPERACION(Bodoque bodoque):{}
+     {
+            <MULTIPLY>{ bodoque.setOperacion(new Multiplicacion()); }
+        |   <DIVIDE>{ bodoque.setOperacion(new Division()); }
+        |   <ADD>{ bodoque.setOperacion(new Suma()); }
+        |   <SUBTRACT>{ bodoque.setOperacion(new Resta()); }
+     }
+void SOPERANDO(Bodoque bodoque):{}
+     {       LOOKAHEAD(2)
+            SUBBODOQUE(bodoque)
+        |   LOOKAHEAD(2)
+            <NUMBER>{ bodoque.setSegundoOperando(new Valor(token.image)); }
+        |   <CUENTA>{ bodoque.setSegundoOperando(new CuentaOperando(token.image)); }
+     }
+void SUBBODOQUE(Bodoque bodoque):{
+    Bodoque subBodoque = new Bodoque();
+    bodoque.setSegundoOperando(subBodoque);
+}
+    {
+        POPERANDO(subBodoque) OPERACION(subBodoque) SOPERANDO(subBodoque)
+    }
