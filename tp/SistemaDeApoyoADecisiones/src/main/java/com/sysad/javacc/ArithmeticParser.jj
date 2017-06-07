@@ -1,9 +1,9 @@
 options{ STATIC = false; JDK_VERSION = "1.8"; }
 PARSER_BEGIN(ArithmeticParser)
-package javacc;
-import modelo.dominio.operandos.Bodoque;
-import modelo.dominio.operaciones.*;
-import modelo.dominio.operandos.*;
+package com.sysad.javacc;
+import com.sysad.dominio.operandos.Bodoque;
+import com.sysad.dominio.operaciones.*;
+import com.sysad.dominio.operandos.*;
 
 public class ArithmeticParser {
     Bodoque bodoqueDevolver = new Bodoque();
