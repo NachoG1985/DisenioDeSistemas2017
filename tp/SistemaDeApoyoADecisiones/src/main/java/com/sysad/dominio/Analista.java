@@ -3,11 +3,14 @@ import java.util.*;
 
 import com.sysad.utils.EmpresasUpload;
 
+import com.sysad.dominio.Indicador;
+
 public class Analista {
 		
 	//Atributos
 	private String ruta;  //Ruta donde se va a buscar el archivo a procesar
 	private List<Empresa> empresas;
+	private List<Indicador> indicadores;
 
 	//Metodos
 	 

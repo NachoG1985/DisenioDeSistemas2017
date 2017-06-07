@@ -3,7 +3,6 @@ package com.sysad.utils;
 import com.sysad.javacc.ArithmeticParser;
 import com.sysad.javacc.ParseException;
 import com.sysad.dominio.Indicador;
-import modelo.repositorios.IndicadoresRepository;
 import org.uqbar.commons.model.UserException;
 
 import java.io.StringReader;
@@ -15,7 +14,7 @@ import java.io.StringReader;
 public class IndicadorParser {
 
     private Indicador indicador;
-    public void generarIndicador(String nombre, String formula){
+    public Indicador generarIndicador(String nombre, String formula){
         StringReader sr = new StringReader(formula);
         ArithmeticParser arithmeticParser = new ArithmeticParser(sr);
 
@@ -23,7 +22,8 @@ public class IndicadorParser {
              arithmeticParser.Start();
              final Indicador indicador = new Indicador();
              indicador.setBodoque(arithmeticParser.getBodoqueDevolver());
-             IndicadoresRepository.getInstance().update(indicador);
+             //IndicadoresRepository.getInstance().update(indicador);
+             return indicador;
         }catch(ParseException e){
             throw new UserException("La formula que ingreso no es valida, por favor intente de nuevo");
         }
